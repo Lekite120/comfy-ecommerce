@@ -1,0 +1,109 @@
+import React from 'react'
+import { styled } from 'styled-components'
+import {BsFillGridFill, BsList} from 'react-icons/bs'
+import { useFilterContext } from '../contexts/filter_context'
+import { useProductContext } from '../contexts/product_context'
+
+function Sort() {
+  const {grid_view, setGridView, setListView, sort, updateSort} = useFilterContext()
+  const {products} = useProductContext()
+  return (
+    <Wrapper>
+      <div className="btn-container">
+        <button
+         onClick={setGridView}
+         className={`${grid_view ? 'active' : ''}`}>
+          <BsFillGridFill/>
+        </button>
+        <button
+         onClick={setListView}
+         className={`${!grid_view ? 'active' : null}`}
+         >
+          <BsList/>
+        </button>        
+      </div>
+      <p>{products.length} Products Found</p>
+      <hr/>
+      <form>
+        <label htmlFor="">Sort By</label>
+        <select
+         name=""
+          id=""
+          value={sort}
+          className='sort-input'
+          onChange={updateSort}>
+          <option value="price-lowest">Price (Lowest)</option>
+          <option value="price-highest">Price (Highest)</option>
+          <option value="name-a">Name (A-Z)</option>
+          <option value="name-z">Name (Z-A)</option>
+        </select>
+      </form>
+      
+    </Wrapper>
+  )
+
+}
+const Wrapper = styled.section`
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  margin-bottom: 2rem;
+  column-gap: 2rem;
+  @media (max-width: 576px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0.75rem;
+    .btn-container {
+      width: 50px;
+    }
+    label { 
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
+  @media (min-width: 768px) {
+    column-gap: 2rem;
+  }
+  p {
+    text-transform: capitalize;
+    margin-bottom: 0;
+  }
+
+  .btn-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+    button {
+      background: transparent;
+      border: 1px solid #222;
+      color: #222;
+      width: 1.5rem;
+      border-radius: 4px;
+      height: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      svg {
+        font-size: 1rem;
+      }
+    }
+    .active {
+      background: #222;
+      color: #fff;
+    }
+  }
+
+  .sort-input {
+    border-color: transparent;
+    font-size: 1rem;
+    text-transform: capitalize;
+    padding: 0.25rem 0.5rem;
+  }
+  label {
+    font-size: 1rem;
+    text-transform: capitalize;
+  }
+`
+
+export default Sort
