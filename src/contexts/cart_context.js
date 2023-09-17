@@ -24,7 +24,7 @@ export function CartProvider({ children }) {
     const addToCart = (id, color, amount, product) => {
         dispatch({ type: ADD_TO_CART, payload: { id, color, product, amount } });
     };
-    
+    /** remove cart */
     const removeItem = (id) => {
         dispatch({ type: REMOVE_CART_ITEM, payload: id });
     };
